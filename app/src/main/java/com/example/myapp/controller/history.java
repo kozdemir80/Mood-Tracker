@@ -28,9 +28,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;public class history extends AppCompatActivity {
 
-    private ImageView image7;
     private ListView mlistView;
-    private RelativeLayout mRelative;
     private TextView days;
     private SharedPreferences preferences;
     final Date date = new Date();
@@ -44,39 +42,21 @@ import java.util.List;public class history extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history);
-        mRelative = findViewById(R.id.mRelative);
-        image7 = findViewById(R.id.image7);
+        ImageView image7 = findViewById(R.id.image7);
         try {
             myadapter adapter = new myadapter(this, getList(), days, image7);
             mlistView = findViewById(R.id.mListView);
             mlistView.setAdapter(adapter);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException ignored) {
         }
 
         mlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
-                    Toast.makeText(getApplicationContext(), (CharSequence) getList(), Toast.LENGTH_LONG);
+                    Toast.makeText(getApplicationContext(), (CharSequence) getList(), Toast.LENGTH_LONG).show();
                 }
-                if (position == 1) {
-                    Toast.makeText(getApplicationContext(), (CharSequence) getList(), Toast.LENGTH_LONG);
-                }
-                if (position == 2) {
-                    Toast.makeText(getApplicationContext(), (CharSequence) getList(), Toast.LENGTH_LONG);
-                }
-                if (position == 3) {
-                    Toast.makeText(getApplicationContext(), (CharSequence) getList(), Toast.LENGTH_LONG);
-                }
-                if (position == 4) {
-                    Toast.makeText(getApplicationContext(), (CharSequence) getList(), Toast.LENGTH_LONG);
-                }
-                if (position == 5) {
-                    Toast.makeText(getApplicationContext(), (CharSequence) getList(), Toast.LENGTH_LONG);
-                }
-                if (position == 6) {
-                    Toast.makeText(getApplicationContext(), (CharSequence) getList(), Toast.LENGTH_LONG);
-                }
+
             }
         });
     }
@@ -86,13 +66,12 @@ import java.util.List;public class history extends AppCompatActivity {
         try {
             String json = preferences.getString(myFormatedDate, null);
             Gson gson = new Gson();
-            Type type = new TypeToken<List<Moods>>() {
-            }.getType();
+            Type type = new TypeToken<List<Moods>>() {}.getType();
             arrayItems = gson.fromJson(json, type);
             ArrayAdapter arrayAdapter = new ArrayAdapter(this, Moods.getColors(), Collections.singletonList(Moods.getComment()));
             mlistView.setAdapter(arrayAdapter);
         } catch (NullPointerException e) {
-            Toast.makeText(getApplicationContext(), "Mood retrieved", Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(), "Mood retrieved", Toast.LENGTH_LONG).show();
         }
         return (Moods) arrayItems;
 
