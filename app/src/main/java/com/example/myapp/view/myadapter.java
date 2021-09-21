@@ -4,32 +4,60 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapp.R;
 import com.example.myapp.model.Moods;
 
-import java.util.List;public class myadapter extends ArrayAdapter<String> {
-    private final TextView days;
-    private final ImageView image7;
-    private final AppCompatActivity context;
+import java.util.ArrayList;
+import java.util.List;
 
+public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
+    private ArrayList<Moods> moodList;
+    private Context context;
 
-    public myadapter(Context context, Moods resource, TextView days, ImageView image7) {
-        super(context, R.layout.listview, (List<String>) resource);
-        this.context= (AppCompatActivity) context;
-        this.days = days;
-        this.image7 = image7;
+    public myadapter(ArrayList<Moods> moodList, Context context) {
+        this.moodList = moodList;
+        this.context = context;
+    }
+
+    public myadapter(List<Moods> list) {
+    }
+
+    @NonNull
+    @Override
+    public adapterHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v= LayoutInflater.from(context).inflate(R.layout.listview,parent,false);
+        return new adapterHolder(v);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull adapterHolder holder, int position) {
+   Moods myMoods = moodList.get(position);
+   holder.get;
+    }
+
+    @Override
+    public int getItemCount() {
+        return 7;
+    }
+
+    class adapterHolder extends RecyclerView.ViewHolder{
+        TextView days;
+        ImageView image7;
+        public adapterHolder(@NonNull View itemView) {
+            super(itemView);
+
+            days=(TextView) itemView.findViewById(R.id.days);
+            image7=(ImageView) itemView.findViewById(R.id.image7);
+        }
+
     }
 
 
-    public View getView(int position, View view, ViewGroup parent){
-        LayoutInflater inflater=context.getLayoutInflater();
-        View rowView=inflater.inflate(R.layout.listview, null,true);
-        return rowView;
-    };
+
 }

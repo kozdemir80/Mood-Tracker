@@ -7,9 +7,9 @@
     android:background="#ff9b9b9b">
 
 
-    <ListView
-        android:id="@+id/mListView"
-        android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mview"
+        android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
 

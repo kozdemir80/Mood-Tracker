@@ -1,18 +1,20 @@
 package com.example.myapp.model;
 
 public class Moods {
-    public static String comment;
-    public static int colors;
+    private  String comment;
+    private  int colors;
 
-    public static String getComment() {
+
+
+    public String getComment() {
         return comment;
     }
 
-    public static void setComment(String comment) {
-        Moods.comment = comment;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    public static int getColors() {
+    public int getColors() {
         return colors;
     }
 
@@ -20,8 +22,8 @@ public class Moods {
         this.colors = colors;
     }
 
-    public Moods() {
-        comment = comment;
+    public Moods(String comment, int colors) {
+        this.comment = comment;
         this.colors = colors;
     }
 }

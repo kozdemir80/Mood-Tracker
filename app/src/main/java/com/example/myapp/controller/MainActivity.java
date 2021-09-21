@@ -6,10 +6,6 @@ import static com.example.myapp.R.color.faded_red;
 import static com.example.myapp.R.color.light_sage;
 import static com.example.myapp.R.color.warm_grey;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -29,6 +25,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapp.R;
 import com.example.myapp.model.Moods;
@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
                     final Date date = new Date();
                     @SuppressLint("SimpleDateFormat") final String myFormatedDate = new SimpleDateFormat("dd/MM/yyyy").format(date);
 
-                    Moods mymood = new Moods();
-                    Moods.setComment(myComment);
+                    Moods mymood = new Moods(myComment,color);
+                    mymood.setComment(myComment);
                     mymood.setColors(color);
 
                     Gson gson = new Gson();
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         });
         // setting button to pass history activity
         mGreetingHistoryButton.setOnClickListener(v -> {
-            Intent history = new Intent(MainActivity.this, history.class);
+            Intent history = new Intent(MainActivity.this, xhistory.class);
             startActivity(history);
         });
 
