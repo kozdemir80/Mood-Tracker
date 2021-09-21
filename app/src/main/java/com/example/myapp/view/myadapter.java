@@ -38,7 +38,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
     @Override
     public void onBindViewHolder(@NonNull adapterHolder holder, int position) {
    Moods myMoods = moodList.get(position);
-   holder.get;
     }
 
     @Override
