@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,19 +15,18 @@ import com.example.myapp.R;
 import com.example.myapp.model.Moods;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
-    private ArrayList<Moods> moodList;
+    private ArrayList<Moods> setList;
     private Context context;
 
-    public myadapter(ArrayList<Moods> moodList, Context context) {
-        this.moodList = moodList;
+
+
+    public myadapter(ArrayList<Moods> setList, Context context) {
+        this.setList = setList;
         this.context = context;
     }
 
-    public myadapter(List<Moods> list) {
-    }
 
     @NonNull
     @Override
@@ -37,24 +37,34 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull adapterHolder holder, int position) {
-   Moods myMoods = moodList.get(position);
+       Moods moods=setList.get(position);
+        holder.setData(moods,position);
     }
 
     @Override
     public int getItemCount() {
-        return 7;
+        return setList.size();
     }
 
     class adapterHolder extends RecyclerView.ViewHolder{
         TextView days;
         ImageView image7;
+        LinearLayout mLayout;
         public adapterHolder(@NonNull View itemView) {
             super(itemView);
 
             days=(TextView) itemView.findViewById(R.id.days);
             image7=(ImageView) itemView.findViewById(R.id.image7);
+            mLayout= (LinearLayout) itemView.findViewById(R.id.mLayout);
+
         }
 
+        public void setData(Moods moods, int position) {
+            this.days.setText(moods.getComment());
+            this.image7.setImageResource(R.drawable.comment);
+            this.mLayout.setBackgroundResource(moods.getColors());
+
+        }
     }
 
 

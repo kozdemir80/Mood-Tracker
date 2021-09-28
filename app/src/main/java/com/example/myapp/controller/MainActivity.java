@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(com.example.myapp.R.layout.activity_main);
 
         //Initializing imageView
         mGreetingImageView = findViewById(R.id.smiley);
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         });
         // setting button to pass history activity
         mGreetingHistoryButton.setOnClickListener(v -> {
-            Intent history = new Intent(MainActivity.this, xhistory.class);
+            Intent history = new Intent(MainActivity.this,history.class);
             startActivity(history);
         });
 
@@ -164,6 +164,16 @@ public class MainActivity extends AppCompatActivity {
             cornflower_blue_65,
             light_sage,
             banana_yellow};
+
+    public static String[] moodDays={"yesterday",
+            "2 days ago",
+            "3 days ago",
+            "4 days ago",
+            "5 days ago",
+            "6 days ago",
+            "7 days ago"
+
+    };
 
 
 

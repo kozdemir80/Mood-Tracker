@@ -4,6 +4,9 @@ public class Moods {
     private  String comment;
     private  int colors;
 
+    public Moods() {
+
+    }
 
 
     public String getComment() {
