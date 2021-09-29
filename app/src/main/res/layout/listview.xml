@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/mLayout"
     tools:ignore="InvalidId,UseCompoundDrawables">
+
 
     <TextView
         android:id="@+id/days"
         android:layout_width="350dp"
         android:layout_height="70dp"
-        android:layout_marginTop="530dp"
+        android:layout_marginTop="5dp"
         android:text="1 day ago"
         android:textColor="#263238"
         tools:ignore="HardcodedText" />
-
 
     <ImageView
         android:id="@+id/image7"
@@ -24,8 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:layout_marginStart="230dp"
-        android:layout_marginTop="540dp"
-        app:srcCompat="@drawable/comment"
+        android:layout_marginTop="10dp"
         tools:ignore="ContentDescription" />
 
-</LinearLayout>
+
+</RelativeLayout>

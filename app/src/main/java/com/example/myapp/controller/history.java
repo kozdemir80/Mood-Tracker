@@ -1,7 +1,10 @@
 package com.example.myapp.controller;
 
-import static com.example.myapp.controller.MainActivity.moodColorsArray;
-import static com.example.myapp.controller.MainActivity.moodImagesArray;
+import static com.example.myapp.R.color.banana_yellow;
+import static com.example.myapp.R.color.cornflower_blue_65;
+import static com.example.myapp.R.color.faded_red;
+import static com.example.myapp.R.color.light_sage;
+import static com.example.myapp.R.color.warm_grey;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
@@ -45,13 +48,12 @@ public class history extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history);
-        recyclerView=findViewById(R.id.mview);
+        recyclerView=(RecyclerView) findViewById(R.id.mview);
         myadapter adapter = new myadapter((ArrayList<Moods>) setList(),this);
-        recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(adapter);
     }
 
     public  ArrayList<Moods> getList() {
@@ -68,18 +70,35 @@ public class history extends AppCompatActivity {
 
     }
     public static ArrayList<Moods> setList(){
-        ArrayList<Moods> exampleList=new ArrayList<Moods>();
-        String[] moodDays={"yesterday",
+        ArrayList<Moods> exampleList= new ArrayList<>();
+        String[] Days={"yesterday",
                 "2 days ago",
                 "3 days ago",
                 "4 days ago",
                 "5 days ago",
                 "6 days ago",
                 "7 days ago"};
-        for (int i =0;i>moodDays.length; i++){
-        Moods moods=new Moods();
-        moods.setComment(moodDays[i]);
-        moods.setColors(moodColorsArray[i]);
+         int[] moodColor = {light_sage,
+                faded_red,
+                warm_grey,
+                cornflower_blue_65,
+                 light_sage,
+                 faded_red,
+                banana_yellow};
+        int image []={R.drawable.comment,
+                R.drawable.comment,
+                R.drawable.comment,
+                R.drawable.comment,
+                R.drawable.comment,
+                R.drawable.comment,
+                R.drawable.comment,
+
+        };
+        for (int i = 0; i < Days.length; i++){
+        Moods moods=new Moods("good mood",0,0);
+        moods.setComment(Days[i]);
+        moods.setColors(moodColor[i]);
+        moods.setImage(image[i]);
         exampleList.add(moods);
         }
 
