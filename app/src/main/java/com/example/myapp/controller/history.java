@@ -10,7 +10,6 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,43 +31,45 @@ import java.util.List;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class history extends AppCompatActivity {
-    private static SharedPreferences preferences;
+     SharedPreferences preferences;
     RecyclerView recyclerView;
-    @SuppressLint("SimpleDateFormat")
-    ZoneId z = ZoneId.of( "ECT" ) ;
-    LocalDate today = LocalDate.now( z ) ;
-    LocalDate myFormatedDate = today.minusDays(7) ;
+    @SuppressLint({"SimpleDateFormat", "ResourceType", "NewApi"})
 
 
-
-
-    @SuppressLint({"ResourceType", "NewApi"})
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history);
         recyclerView=(RecyclerView) findViewById(R.id.mview);
-        myadapter adapter = new myadapter((ArrayList<Moods>) setList(),this);
+        myadapter adapter = new myadapter((ArrayList<Moods>) getList(),this);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+
+
+
     }
 
-    public  ArrayList<Moods> getList() {
-        ArrayList<Moods> arrayItems = null;
+
+    public ArrayList<Moods> getList() {
+        ArrayList<Moods> arrayItems = new ArrayList<>();
+
         try {
-            String json = preferences.getString(String.valueOf(myFormatedDate), null);
-            Gson gson = new Gson();
-            Type type = new TypeToken<List<Moods>>() {}.getType();
-            arrayItems = gson.fromJson(json, type);
-        } catch (NullPointerException e) {
-            Toast.makeText(getApplicationContext(), "Mood retrieved", Toast.LENGTH_LONG).show();
-        }
+            ZoneId z = ZoneId.of("ECT");
+            LocalDate today = LocalDate.now(z);
+            for (int i = 1; i <= 7; i++) {
+                LocalDate myFormatedDate = today.minusDays(i);
+                String myGson = preferences.getString(String.valueOf(myFormatedDate), null);
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<Moods>>() {}.getType();
+                arrayItems = gson.fromJson(myGson, type);}
+        } catch(NullPointerException ignored){}
         return arrayItems;
-
     }
+
+
     public static ArrayList<Moods> setList(){
         ArrayList<Moods> exampleList= new ArrayList<>();
         String[] Days={"yesterday",

@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     final Date date = new Date();
                     @SuppressLint("SimpleDateFormat") final String myFormatedDate = new SimpleDateFormat("dd/MM/yyyy").format(date);
 
-                    Moods mymood = new Moods(myComment,color,R.drawable.comment);
+                    Moods mymood = new Moods("current mood",0,0);
                     mymood.setComment(myComment);
                     mymood.setColors(color);
 
