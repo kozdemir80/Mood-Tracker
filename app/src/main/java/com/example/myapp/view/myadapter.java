@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
     private ArrayList<Moods> arrayItems;
     private Context context;
     LayoutInflater inflater;
+    private RelativeLayout mLayout;
+
+
+
 
 
 
@@ -27,7 +33,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
         inflater=LayoutInflater.from(context);
         this.arrayItems = arrayItems;
         this.context = context;
+
     }
+
+
 
 
     @NonNull
@@ -44,6 +53,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
         holder.days.setBackgroundColor(currentMoods.getColors());
         holder.days.setText(currentMoods.getComment());
 
+
         if (arrayItems.get(position).getComment() != null){
             holder.image7.setVisibility(View.VISIBLE);
             final String comment = arrayItems.get(position).getComment();
@@ -55,6 +65,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
                 }
             });
         }else holder.image7.setVisibility(View.INVISIBLE);
+
+
+        LinearLayout.LayoutParams leftLayout = new LinearLayout.LayoutParams(0,ViewGroup.LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams rightLayout= new LinearLayout.LayoutParams(0,ViewGroup.LayoutParams.MATCH_PARENT);
+        float weight;
+
+
     }
 
     @Override
@@ -62,20 +79,19 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
          return arrayItems.size();
     }
 
-  class adapterHolder extends RecyclerView.ViewHolder{
+  static class adapterHolder extends RecyclerView.ViewHolder{
         TextView days;
         ImageView image7;
         public adapterHolder(@NonNull View itemView) {
             super(itemView);
 
-            days=(TextView) itemView.findViewById(R.id.days);
-            image7=(ImageView) itemView.findViewById(R.id.image7);
+            days= itemView.findViewById(R.id.days);
+            image7= itemView.findViewById(R.id.image7);
 
 
         }
-
+    }
     }
 
 
 
-}

@@ -35,14 +35,12 @@ import com.example.myapp.model.Moods;
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class MainActivity extends AppCompatActivity {
-    private ImageButton mGreetingAddImageButton;
-    private ImageButton mGreetingHistoryButton;
     private ImageView mGreetingImageView;
-    private GestureDetector mgestureDetector;
-    private LinearLayout mlayout;
+    private GestureDetector mGestureDetector;
+    private LinearLayout mLayout;
     private int index;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -54,13 +52,13 @@ public class MainActivity extends AppCompatActivity {
         //Initializing imageView
         mGreetingImageView = findViewById(R.id.smiley);
         //Initializing history button
-        mGreetingHistoryButton = findViewById(R.id.history);
+        ImageButton mGreetingHistoryButton = findViewById(R.id.history);
         //Initializing adding comment button
-        mGreetingAddImageButton = findViewById(R.id.addcomment);
+        ImageButton mGreetingAddImageButton = findViewById(R.id.addcomment);
         //Initializing gesture detector
-        mgestureDetector = new GestureDetector(this, new mGesture());
+        mGestureDetector = new GestureDetector(this, new mGesture());
         //Initializing layout
-        mlayout = findViewById(R.id.MainActivity);
+        mLayout = findViewById(R.id.MainActivity);
         //Initializing index
         changeUi(index);
         scheduleAlarm();
@@ -74,36 +72,38 @@ public class MainActivity extends AppCompatActivity {
             View view=inflater.inflate(R.layout.alertdialog,null);
             EditText editText= view.findViewById(R.id.comment_here);
             // setting positive and negative button for adding comment section
-            AlertDialog.Builder addcomment = new AlertDialog.Builder(MainActivity.this);
-            addcomment.setTitle("Comment");
-            addcomment.setView(view);
-            addcomment.setNegativeButton("Cancel", (dialog, which) -> {
+            AlertDialog.Builder addComment = new AlertDialog.Builder(MainActivity.this);
+            addComment.setTitle("Comment");
+            addComment.setView(view);
+            addComment.setNegativeButton("Cancel", (dialog, which) -> {
 
             });
-            addcomment.setPositiveButton("Confirm", (dialog, which) -> {
+            addComment.setPositiveButton("Confirm", (dialog, which) -> {
                 {
                     String myComment = editText.getText().toString();
-                    int color = ((ColorDrawable) mlayout.getBackground()).getColor();
-                    final Date date = new Date();
-                    @SuppressLint("SimpleDateFormat") final String myFormatedDate = new SimpleDateFormat("dd/MM/yyyy").format(date);
+                    int color = ((ColorDrawable) mLayout.getBackground()).getColor();
+                    @SuppressLint({"NewApi", "LocalSuppress"}) LocalDate today = LocalDate.now();
 
-                    Moods mymood = new Moods("current mood",0,0);
-                    mymood.setComment(myComment);
-                    mymood.setColors(color);
+                        @SuppressLint({"SimpleDateFormat", "NewApi", "LocalSuppress"}) final String myFormatedDate = new SimpleDateFormat("dd/MM/yyyy").format(today.getDayOfMonth());
 
-                    Gson gson = new Gson();
+                        Moods myMood = new Moods("", 0, 0);
+                        myMood.setComment(myComment);
+                        myMood.setColors(color);
 
-                    String myGson = gson.toJson(mymood);
+                        Gson gson = new Gson();
 
-                    SharedPreferences preferences = getSharedPreferences("myFile", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString(myFormatedDate, myGson);
-                    editor.apply();
+                        String myGson = gson.toJson(myMood);
+
+                        SharedPreferences preferences = getSharedPreferences("myFile", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString(myFormatedDate, myGson);
+                        editor.apply();
 
                     Toast.makeText(getApplicationContext(), "Comment successfully saved", Toast.LENGTH_SHORT).show();
                 }
+
             });
-            addcomment.show();
+            addComment.show();
 
 
         });
@@ -246,12 +246,12 @@ public class MainActivity extends AppCompatActivity {
 
     private int changeUi(int index) {
         mGreetingImageView.setImageResource(moodImagesArray[index]);
-        mlayout.setBackgroundResource(moodColorsArray[index]);
+        mLayout.setBackgroundResource(moodColorsArray[index]);
         return index;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return mgestureDetector.onTouchEvent(event);
+        return mGestureDetector.onTouchEvent(event);
     }
     }
