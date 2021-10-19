@@ -16,6 +16,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout mLayout;
     private int index;
 
+    @SuppressLint("NewApi")
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,13 +82,15 @@ public class MainActivity extends AppCompatActivity {
             });
             addComment.setPositiveButton("Confirm", (dialog, which) -> {
                 {
-                    String myComment = editText.getText().toString();
-                    int color = ((ColorDrawable) mLayout.getBackground()).getColor();
-                    @SuppressLint({"NewApi", "LocalSuppress"}) LocalDate today = LocalDate.now();
+                    for (int i = 1; i <= 7; i++) {
+                        String myComment = editText.getText().toString();
+                        int color = ((ColorDrawable) mLayout.getBackground()).getColor();
+                        @SuppressLint({"NewApi", "LocalSuppress"})
+                        LocalDate today = LocalDate.now();
+                        @SuppressLint({"SimpleDateFormat", "NewApi", "LocalSuppress"})
 
-                        @SuppressLint({"SimpleDateFormat", "NewApi", "LocalSuppress"}) final String myFormatedDate = new SimpleDateFormat("dd/MM/yyyy").format(today.getDayOfMonth());
-
-                        Moods myMood = new Moods("", 0, 0);
+                        final String myFormatedDate = new SimpleDateFormat("dd/MM/yyyy").format(today.getDayOfMonth());
+                        Moods myMood = new Moods("", 0, 0, 0);
                         myMood.setComment(myComment);
                         myMood.setColors(color);
 
@@ -96,11 +100,14 @@ public class MainActivity extends AppCompatActivity {
 
                         SharedPreferences preferences = getSharedPreferences("myFile", MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString(myFormatedDate, myGson);
+                        editor.putString(String.valueOf(myFormatedDate), myGson);
+                        Log.d("yess be","ok!");
                         editor.apply();
 
-                    Toast.makeText(getApplicationContext(), "Comment successfully saved", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Comment successfully saved", Toast.LENGTH_SHORT).show();
+                    }
                 }
+
 
             });
             addComment.show();
@@ -230,10 +237,6 @@ public class MainActivity extends AppCompatActivity {
                     index++;
 
                     changeUi(index);
-
-
-
-
 
                 }
 

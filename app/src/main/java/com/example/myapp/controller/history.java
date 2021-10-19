@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,7 +37,7 @@ public class history extends AppCompatActivity {
     RecyclerView recyclerView;
     TextView days;
     ImageView image7;
-    @SuppressLint({"SimpleDateFormat", "ResourceType", "NewApi"})
+    @SuppressLint({"ResourceType", "NewApi"})
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -63,17 +64,17 @@ public class history extends AppCompatActivity {
         ArrayList<Moods> arrayItems = new ArrayList<>();
 
         try {
-
-            LocalDate today = LocalDate.now();
-            Moods items = null;
             for (int i = 1; i <= 7; i++) {
+                LocalDate today = LocalDate.now();
                 LocalDate myFormatedDate = today.minusDays(i);
                 String myGson = preferences.getString(String.valueOf(myFormatedDate), null);
+                Log.d("working","oleyy");
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<Moods>>() {}.getType();
-                items = gson.fromJson(myGson, type);
+                Moods items = gson.fromJson(myGson, type);
+                arrayItems.add(items);
             }
-            arrayItems.add(items);
+
         } catch(NullPointerException ignored){}
         return arrayItems;
     }
@@ -105,7 +106,7 @@ public class history extends AppCompatActivity {
 
         };
         for (int i = 0; i < Days.length; i++){
-        Moods moods=new Moods("good mood",1,0);
+        Moods moods=new Moods("good mood",1,0,0);
         moods.setComment(Days[i]);
         moods.setColors(moodColor[i]);
         moods.setImage(image[i]);

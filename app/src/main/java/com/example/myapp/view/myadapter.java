@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +53,11 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
         holder.days.setText(currentMoods.getComment());
 
 
+
+
+
+
+
         if (arrayItems.get(position).getComment() != null){
             holder.image7.setVisibility(View.VISIBLE);
             final String comment = arrayItems.get(position).getComment();
@@ -66,10 +70,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
             });
         }else holder.image7.setVisibility(View.INVISIBLE);
 
-
-        LinearLayout.LayoutParams leftLayout = new LinearLayout.LayoutParams(0,ViewGroup.LayoutParams.MATCH_PARENT);
-        LinearLayout.LayoutParams rightLayout= new LinearLayout.LayoutParams(0,ViewGroup.LayoutParams.MATCH_PARENT);
-        float weight;
 
 
     }
