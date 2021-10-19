@@ -35,7 +35,6 @@ import com.example.myapp.R;
 import com.example.myapp.model.Moods;
 import com.google.gson.Gson;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 public class MainActivity extends AppCompatActivity {
@@ -86,10 +85,10 @@ public class MainActivity extends AppCompatActivity {
                         String myComment = editText.getText().toString();
                         int color = ((ColorDrawable) mLayout.getBackground()).getColor();
                         @SuppressLint({"NewApi", "LocalSuppress"})
-                        LocalDate today = LocalDate.now();
-                        @SuppressLint({"SimpleDateFormat", "NewApi", "LocalSuppress"})
+                            LocalDate today = LocalDate.now();
+                            LocalDate myFormatedDate = today.minusDays(1);
 
-                        final String myFormatedDate = new SimpleDateFormat("dd/MM/yyyy").format(today.getDayOfMonth());
+                        Log.d("yess be","ok!"+myFormatedDate);
                         Moods myMood = new Moods("", 0, 0, 0);
                         myMood.setComment(myComment);
                         myMood.setColors(color);
@@ -101,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
                         SharedPreferences preferences = getSharedPreferences("myFile", MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putString(String.valueOf(myFormatedDate), myGson);
-                        Log.d("yess be","ok!");
                         editor.apply();
 
                         Toast.makeText(getApplicationContext(), "Comment successfully saved", Toast.LENGTH_SHORT).show();

@@ -67,8 +67,8 @@ public class history extends AppCompatActivity {
             for (int i = 1; i <= 7; i++) {
                 LocalDate today = LocalDate.now();
                 LocalDate myFormatedDate = today.minusDays(i);
+                Log.d("working","oleyy"+myFormatedDate);
                 String myGson = preferences.getString(String.valueOf(myFormatedDate), null);
-                Log.d("working","oleyy");
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<Moods>>() {}.getType();
                 Moods items = gson.fromJson(myGson, type);
