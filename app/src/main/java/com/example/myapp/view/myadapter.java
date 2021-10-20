@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +20,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
     private ArrayList<Moods> arrayItems;
     private Context context;
     LayoutInflater inflater;
-    private RelativeLayout mLayout;
 
 
 
@@ -49,8 +47,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
     public void onBindViewHolder(@NonNull adapterHolder holder, int position) {
        Moods currentMoods=arrayItems.get(position);
         holder.image7.setImageResource(currentMoods.getImage());
-        holder.days.setBackgroundColor(currentMoods.getColors());
+        holder.days.setBackgroundResource(currentMoods.getColors());
         holder.days.setText(currentMoods.getComment());
+        holder.days.setWidth(currentMoods.getWidth());
+
 
 
 
@@ -82,11 +82,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
   static class adapterHolder extends RecyclerView.ViewHolder{
         TextView days;
         ImageView image7;
+
         public adapterHolder(@NonNull View itemView) {
             super(itemView);
 
             days= itemView.findViewById(R.id.days);
             image7= itemView.findViewById(R.id.image7);
+
 
 
         }

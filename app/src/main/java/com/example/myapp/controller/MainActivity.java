@@ -81,12 +81,12 @@ public class MainActivity extends AppCompatActivity {
             });
             addComment.setPositiveButton("Confirm", (dialog, which) -> {
                 {
-                    for (int i = 1; i <= 7; i++) {
+                    for (int i = 0; i <= 7; i++) {
                         String myComment = editText.getText().toString();
                         int color = ((ColorDrawable) mLayout.getBackground()).getColor();
                         @SuppressLint({"NewApi", "LocalSuppress"})
                             LocalDate today = LocalDate.now();
-                            LocalDate myFormatedDate = today.minusDays(1);
+                            LocalDate myFormatedDate = today.minusDays(0);
 
                         Log.d("yess be","ok!"+myFormatedDate);
                         Moods myMood = new Moods("", 0, 0, 0);

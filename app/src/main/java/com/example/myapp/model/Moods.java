@@ -19,7 +19,7 @@ public class Moods {
         return width;
     }
 
-    public void setWidth(int width) {
+    public void setWidth(int width, float v) {
         this.width = width;
     }
 

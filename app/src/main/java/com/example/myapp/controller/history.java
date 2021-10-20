@@ -1,6 +1,5 @@
 package com.example.myapp.controller;
 
-import static com.example.myapp.R.color.banana_yellow;
 import static com.example.myapp.R.color.cornflower_blue_65;
 import static com.example.myapp.R.color.faded_red;
 import static com.example.myapp.R.color.light_sage;
@@ -64,7 +63,7 @@ public class history extends AppCompatActivity {
         ArrayList<Moods> arrayItems = new ArrayList<>();
 
         try {
-            for (int i = 1; i <= 7; i++) {
+            for (int i = 0; i <= 7; i++) {
                 LocalDate today = LocalDate.now();
                 LocalDate myFormatedDate = today.minusDays(i);
                 Log.d("working","oleyy"+myFormatedDate);
@@ -88,25 +87,24 @@ public class history extends AppCompatActivity {
                 "4 days ago",
                 "5 days ago",
                 "6 days ago",
-                "7 days ago"};
+               };
          int[] moodColor = {light_sage,
                 faded_red,
                 warm_grey,
                 cornflower_blue_65,
                  light_sage,
                  faded_red,
-                banana_yellow};
+               };
         int[] image ={R.drawable.comment,
                 R.drawable.comment,
                 R.drawable.comment,
                 R.drawable.comment,
                 R.drawable.comment,
                 R.drawable.comment,
-                R.drawable.comment,
-
         };
+
         for (int i = 0; i < Days.length; i++){
-        Moods moods=new Moods("good mood",1,0,0);
+        Moods moods=new Moods("",1,0,0);
         moods.setComment(Days[i]);
         moods.setColors(moodColor[i]);
         moods.setImage(image[i]);
