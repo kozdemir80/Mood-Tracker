@@ -12,11 +12,11 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -36,6 +36,7 @@ import com.example.myapp.model.Moods;
 import com.google.gson.Gson;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class MainActivity extends AppCompatActivity {
     private ImageView mGreetingImageView;
@@ -81,29 +82,27 @@ public class MainActivity extends AppCompatActivity {
             });
             addComment.setPositiveButton("Confirm", (dialog, which) -> {
                 {
-                    for (int i = 0; i <= 7; i++) {
                         String myComment = editText.getText().toString();
                         int color = ((ColorDrawable) mLayout.getBackground()).getColor();
-                        @SuppressLint({"NewApi", "LocalSuppress"})
-                            LocalDate today = LocalDate.now();
-                            LocalDate myFormatedDate = today.minusDays(0);
+                        int myWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 
-                        Log.d("yess be","ok!"+myFormatedDate);
+                        LocalDate myFormatedDate = LocalDate.now();
+                        @SuppressLint("WeekBasedYear") String sDate = myFormatedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                         Moods myMood = new Moods("", 0, 0, 0);
+                        myMood.setWidth(myWidth);
                         myMood.setComment(myComment);
                         myMood.setColors(color);
+                        myMood.setImage(R.drawable.comment);
 
                         Gson gson = new Gson();
-
                         String myGson = gson.toJson(myMood);
-
                         SharedPreferences preferences = getSharedPreferences("myFile", MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString(String.valueOf(myFormatedDate), myGson);
+                        editor.putString(sDate, myGson);
                         editor.apply();
 
                         Toast.makeText(getApplicationContext(), "Comment successfully saved", Toast.LENGTH_SHORT).show();
-                    }
+
                 }
 
 
@@ -149,11 +148,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
     public static int[] moodImagesArray = {R.drawable.happy,
             R.drawable.sad,
             R.drawable.disappointed,
@@ -170,15 +164,12 @@ public class MainActivity extends AppCompatActivity {
             light_sage,
             banana_yellow};
 
-    public static String[] moodDays={"yesterday",
-            "2 days ago",
-            "3 days ago",
-            "4 days ago",
-            "5 days ago",
-            "6 days ago",
-            "7 days ago"
 
-    };
+
+
+
+
+
 
 
 
@@ -245,10 +236,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private int changeUi(int index) {
+    private void changeUi(int index) {
         mGreetingImageView.setImageResource(moodImagesArray[index]);
         mLayout.setBackgroundResource(moodColorsArray[index]);
-        return index;
     }
 
     @Override
