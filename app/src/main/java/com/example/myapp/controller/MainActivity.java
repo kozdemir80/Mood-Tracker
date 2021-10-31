@@ -82,29 +82,30 @@ public class MainActivity extends AppCompatActivity {
             });
             addComment.setPositiveButton("Confirm", (dialog, which) -> {
                 {
-                        String myComment = editText.getText().toString();
-                        int color = ((ColorDrawable) mLayout.getBackground()).getColor();
-                        int myWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 
-                        LocalDate myFormatedDate = LocalDate.now();
-                        @SuppressLint("WeekBasedYear") String sDate = myFormatedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                        Moods myMood = new Moods("", 0, 0, 0);
-                        myMood.setWidth(myWidth);
-                        myMood.setComment(myComment);
-                        myMood.setColors(color);
-                        myMood.setImage(R.drawable.comment);
 
-                        Gson gson = new Gson();
-                        String myGson = gson.toJson(myMood);
-                        SharedPreferences preferences = getSharedPreferences("myFile", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString(sDate, myGson);
-                        editor.apply();
+                    String myComment = editText.getText().toString();
+                    int color = ((ColorDrawable) mLayout.getBackground()).getColor();
+                    int width = Resources.getSystem().getDisplayMetrics().widthPixels;
+                    LocalDate myFormatedDate = LocalDate.now();
+                    @SuppressLint("WeekBasedYear") String sDate = myFormatedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    Moods myMood = new Moods("", 0, 0, 0);
+                    myMood.setWidth(width);
+                    myMood.setComment(myComment);
+                    myMood.setColors(color);
+                    myMood.setImage(R.drawable.comment);
 
-                        Toast.makeText(getApplicationContext(), "Comment successfully saved", Toast.LENGTH_SHORT).show();
+                    Gson gson = new Gson();
+                    String myGson = gson.toJson(myMood);
+                    SharedPreferences preferences = getSharedPreferences("myFile", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString(sDate, myGson);
+                    editor.apply();
+
+                    Toast.makeText(getApplicationContext(), "Comment successfully saved", Toast.LENGTH_SHORT).show();
+
 
                 }
-
 
             });
             addComment.show();
@@ -163,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
             cornflower_blue_65,
             light_sage,
             banana_yellow};
+
 
 
 

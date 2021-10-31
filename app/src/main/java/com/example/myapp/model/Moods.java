@@ -11,7 +11,7 @@ public class Moods {
 
     private  int width;
 
-    public int getWidth(int[] moodWidthsArray) {
+    public int getWidth() {
         return width;
     }
 

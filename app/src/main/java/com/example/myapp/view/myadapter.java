@@ -4,10 +4,12 @@ import static com.example.myapp.controller.MainActivity.moodColorsArray;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,8 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
-    private List<Moods> arrayItems;
-    private Context context;
+    private final List<Moods> arrayItems;
+    private final Context context;
     LayoutInflater inflater;
 
 
@@ -48,10 +50,12 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
         return new adapterHolder(v);
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "ResourceAsColor"})
     @Override
     public void onBindViewHolder(@NonNull adapterHolder holder, int position) {
         Moods myMood= arrayItems.get(position);
+        int width = Resources.getSystem().getDisplayMetrics().widthPixels;
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 240);
 
 
         try {
@@ -83,8 +87,24 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
                     textView.setText("6 days ago");
                     break;
             }
-
-
+            switch (myMood.getWidth()){
+                case 0:
+                    params.width = width * 20 / 100;
+                    break;
+                case 1:
+                    params.width = width * 40 / 100;
+                    break;
+                case 2:
+                    params.width = width * 60 / 100;
+                    break;
+                case 3:
+                    params.width = width * 80 / 100;
+                    break;
+                case 4:
+                    params.width = width;
+                    break;
+            }
+             holder.days.setLayoutParams(params);
 
 
 
@@ -110,9 +130,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
          return arrayItems.size();
     }
 
-  public class adapterHolder extends RecyclerView.ViewHolder{
+  public static class adapterHolder extends RecyclerView.ViewHolder{
         TextView days;
         ImageView image7;
+
 
         public adapterHolder(@NonNull View itemView) {
             super(itemView);
@@ -124,6 +145,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
 
 
         }
+
 
     }
     }
