@@ -12,7 +12,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.icu.util.Calendar;
 import android.os.Build;
@@ -86,11 +85,9 @@ public class MainActivity extends AppCompatActivity {
 
                     String myComment = editText.getText().toString();
                     int color = ((ColorDrawable) mLayout.getBackground()).getColor();
-                    int width = Resources.getSystem().getDisplayMetrics().widthPixels;
                     LocalDate myFormatedDate = LocalDate.now();
                     @SuppressLint("WeekBasedYear") String sDate = myFormatedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                     Moods myMood = new Moods("", 0, 0, 0);
-                    myMood.setWidth(width);
                     myMood.setComment(myComment);
                     myMood.setColors(color);
                     myMood.setImage(R.drawable.comment);
@@ -121,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 
 
 

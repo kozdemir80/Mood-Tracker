@@ -54,16 +54,15 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
     @Override
     public void onBindViewHolder(@NonNull adapterHolder holder, int position) {
         Moods myMood= arrayItems.get(position);
-        int width = Resources.getSystem().getDisplayMetrics().widthPixels;
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 240);
+
 
 
         try {
 
         TextView textView=holder.days;
         ImageView imageView= holder.image7;
-        textView.setBackgroundColor(myMood.getColors(moodColorsArray));
         imageView.setImageResource(myMood.getImage());
+
             switch (position){
                 case 0:
                     textView.setText("Today");
@@ -87,24 +86,31 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
                     textView.setText("6 days ago");
                     break;
             }
-            switch (myMood.getWidth()){
+            int width = Resources.getSystem().getDisplayMetrics().widthPixels;
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(0,240);
+            RelativeLayout.LayoutParams imageWidth= new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,80);
+            switch (myMood.getWidth(width)){
                 case 0:
-                    params.width = width * 20 / 100;
+                    params.width =width * 80 / 100;
                     break;
                 case 1:
-                    params.width = width * 40 / 100;
+                    params.width =width * 20 / 100;
                     break;
                 case 2:
-                    params.width = width * 60 / 100;
+                    params.width = width * 40 / 100;
                     break;
                 case 3:
-                    params.width = width * 80 / 100;
+                    params.width = width * 60 / 100;
                     break;
                 case 4:
                     params.width = width;
                     break;
             }
-             holder.days.setLayoutParams(params);
+            imageWidth.width=width;
+            textView.setLayoutParams(params);
+            imageView.setLayoutParams(imageWidth);
+            textView.setBackgroundColor(myMood.getColors(moodColorsArray[myMood.getWidth(width)]));
+
 
 
 

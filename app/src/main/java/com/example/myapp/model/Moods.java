@@ -11,7 +11,7 @@ public class Moods {
 
     private  int width;
 
-    public int getWidth() {
+    public int getWidth(int moodColorsArray) {
         return width;
     }
 
@@ -37,7 +37,7 @@ public class Moods {
         this.comment = comment;
     }
 
-    public int getColors(int[] moodColorsArray) {
+    public int getColors(int moodColorsArray) {
         return colors;
     }
 
