@@ -1,10 +1,10 @@
 package com.example.myapp.controller;
 
-import static com.example.myapp.R.color.banana_yellow;
-import static com.example.myapp.R.color.cornflower_blue_65;
-import static com.example.myapp.R.color.faded_red;
-import static com.example.myapp.R.color.light_sage;
-import static com.example.myapp.R.color.warm_grey;
+import static com.example.myapp.R.color.blue;
+import static com.example.myapp.R.color.green;
+import static com.example.myapp.R.color.grey;
+import static com.example.myapp.R.color.red;
+import static com.example.myapp.R.color.yellow;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -82,16 +82,17 @@ public class MainActivity extends AppCompatActivity {
             addComment.setPositiveButton("Confirm", (dialog, which) -> {
                 {
 
-
                     String myComment = editText.getText().toString();
                     int color = ((ColorDrawable) mLayout.getBackground()).getColor();
                     LocalDate myFormatedDate = LocalDate.now();
-                    @SuppressLint("WeekBasedYear") String sDate = myFormatedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    Moods myMood = new Moods("", 0, 0, 0);
-                    myMood.setComment(myComment);
-                    myMood.setColors(color);
-                    myMood.setImage(R.drawable.comment);
+                    @SuppressLint("WeekBasedYear")
+                    String sDate = myFormatedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    Moods myMood = new Moods("", 0, 0);
 
+
+                    myMood.setComment(myComment);
+                    myMood.setImage(R.drawable.comment);
+                    myMood.setColors(color);
                     Gson gson = new Gson();
                     String myGson = gson.toJson(myMood);
                     SharedPreferences preferences = getSharedPreferences("myFile", MODE_PRIVATE);
@@ -156,12 +157,15 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public static int[] moodColorsArray = {light_sage,
-            faded_red,
-            warm_grey,
-            cornflower_blue_65,
-            light_sage,
-            banana_yellow};
+    public static int[] moodColorsArray = {green,
+            red,
+            grey,
+            blue,
+            green,
+            yellow};
+
+
+
 
 
 

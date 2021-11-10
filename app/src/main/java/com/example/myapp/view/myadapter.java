@@ -1,7 +1,5 @@
 package com.example.myapp.view;
 
-import static com.example.myapp.controller.MainActivity.moodColorsArray;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
@@ -33,10 +31,12 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
 
 
 
+
     public myadapter(ArrayList<Moods> arrayItems, Context context) {
         inflater=LayoutInflater.from(context);
         this.arrayItems = arrayItems;
         this.context = context;
+
 
     }
 
@@ -50,10 +50,12 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
         return new adapterHolder(v);
     }
 
-    @SuppressLint({"SetTextI18n", "ResourceAsColor"})
+
+    @SuppressLint({"SetTextI18n", "NonConstantResourceId", "ResourceAsColor"})
     @Override
     public void onBindViewHolder(@NonNull adapterHolder holder, int position) {
         Moods myMood= arrayItems.get(position);
+
 
 
 
@@ -62,6 +64,11 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
         TextView textView=holder.days;
         ImageView imageView= holder.image7;
         imageView.setImageResource(myMood.getImage());
+        textView.setBackgroundColor(myMood.getColors());
+
+
+
+
 
             switch (position){
                 case 0:
@@ -87,35 +94,38 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
                     break;
             }
             int width = Resources.getSystem().getDisplayMetrics().widthPixels;
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(0,240);
-            RelativeLayout.LayoutParams imageWidth= new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,80);
-            switch (myMood.getWidth(width)){
-                case 0:
-                    params.width =width * 80 / 100;
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 230);
+            switch (myMood.getColors()){
+                case R.color.red:
+                    params.width = 20 / 100;
                     break;
-                case 1:
-                    params.width =width * 20 / 100;
-                    break;
-                case 2:
+
+                case R.color.grey:
                     params.width = width * 40 / 100;
                     break;
-                case 3:
+                case R.color.blue:
                     params.width = width * 60 / 100;
                     break;
-                case 4:
+                case R.color.green:
+                    params.width = width * 80 / 100;
+                    break;
+                case R.color.yellow:
                     params.width = width;
                     break;
             }
-            imageWidth.width=width;
-            textView.setLayoutParams(params);
-            imageView.setLayoutParams(imageWidth);
-            textView.setBackgroundColor(myMood.getColors(moodColorsArray[myMood.getWidth(width)]));
+            holder.days.setLayoutParams(params);
 
 
 
 
 
-        }catch (NullPointerException ignored){}
+
+
+
+
+
+        }catch (NullPointerException ignored){
+        }
 
 
         try {
@@ -141,7 +151,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
         ImageView image7;
 
 
-        public adapterHolder(@NonNull View itemView) {
+
+        public  adapterHolder(@NonNull View itemView) {
             super(itemView);
 
             days= itemView.findViewById(R.id.days);
@@ -150,8 +161,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
 
 
 
-        }
 
+        }
 
     }
     }
