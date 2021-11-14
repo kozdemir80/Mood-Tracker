@@ -6,7 +6,8 @@
     android:id="@+id/mLayout"
     android:orientation="horizontal"
     android:background="#FFFFFF"
-    tools:ignore="InvalidId,UseCompoundDrawables">
+    tools:ignore="InvalidId,UseCompoundDrawables"
+    android:baselineAligned="false">
 
     <FrameLayout
         android:id="@+id/left_frame_layout"

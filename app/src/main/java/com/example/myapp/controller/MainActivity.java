@@ -222,13 +222,20 @@ public class MainActivity extends AppCompatActivity {
                     index--;
 
                     changeUi(index);
+                    int color = ((ColorDrawable) mLayout.getBackground()).getColor();
                     LocalDate myFormatedDate = LocalDate.now();
                     @SuppressLint("WeekBasedYear")
                     String sDate = myFormatedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    Moods myMood = new Moods("", 0, 0);
+                    myMood.setColors(color);
+                    Gson gson = new Gson();
+                    String myGson = gson.toJson(myMood);
                     SharedPreferences preferences = getSharedPreferences("myFile", MODE_PRIVATE);
+                    Log.d(TAG, "kadir: "+preferences);
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString(sDate,String.valueOf(index));
+                    editor.putString(sDate, myGson);
                     editor.apply();
+
 
 
                 }
@@ -242,6 +249,21 @@ public class MainActivity extends AppCompatActivity {
                     index++;
 
                     changeUi(index);
+                    int color = ((ColorDrawable) mLayout.getBackground()).getColor();
+
+                    LocalDate myFormatedDate = LocalDate.now();
+                    @SuppressLint("WeekBasedYear")
+                    String sDate = myFormatedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    Moods myMood = new Moods("", 0, 0);
+                    myMood.setColors(color);
+                    Gson gson = new Gson();
+                    String myGson = gson.toJson(myMood);
+                    SharedPreferences preferences = getSharedPreferences("myFile", MODE_PRIVATE);
+                    Log.d(TAG, "CurrentMoodColor: "+preferences);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString(sDate, myGson);
+                    editor.apply();
+
 
 
 
