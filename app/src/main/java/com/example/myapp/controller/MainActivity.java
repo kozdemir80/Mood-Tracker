@@ -1,5 +1,6 @@
 package com.example.myapp.controller;
 
+import static android.content.ContentValues.TAG;
 import static com.example.myapp.R.color.blue;
 import static com.example.myapp.R.color.green;
 import static com.example.myapp.R.color.grey;
@@ -16,6 +17,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -38,6 +40,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class MainActivity extends AppCompatActivity {
+
     private ImageView mGreetingImageView;
     private GestureDetector mGestureDetector;
     private LinearLayout mLayout;
@@ -80,27 +83,29 @@ public class MainActivity extends AppCompatActivity {
 
             });
             addComment.setPositiveButton("Confirm", (dialog, which) -> {
+
+                String myComment = editText.getText().toString();
+                int color = ((ColorDrawable) mLayout.getBackground()).getColor();
+                LocalDate myFormatedDate = LocalDate.now();
+                @SuppressLint("WeekBasedYear")
+                String sDate = myFormatedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                Moods myMood = new Moods("", 0, 0);
+
+
+                myMood.setComment(myComment);
+                myMood.setImage(R.drawable.comment);
+                myMood.setColors(color);
+                Log.d(TAG, ":colorss "+ (color));
+                Gson gson = new Gson();
+                String myGson = gson.toJson(myMood);
+                SharedPreferences preferences = getSharedPreferences("myFile", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString(sDate, myGson);
+                editor.apply();
+
+                Toast.makeText(getApplicationContext(), "Comment successfully saved", Toast.LENGTH_SHORT).show();
+
                 {
-
-                    String myComment = editText.getText().toString();
-                    int color = ((ColorDrawable) mLayout.getBackground()).getColor();
-                    LocalDate myFormatedDate = LocalDate.now();
-                    @SuppressLint("WeekBasedYear")
-                    String sDate = myFormatedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    Moods myMood = new Moods("", 0, 0);
-
-
-                    myMood.setComment(myComment);
-                    myMood.setImage(R.drawable.comment);
-                    myMood.setColors(color);
-                    Gson gson = new Gson();
-                    String myGson = gson.toJson(myMood);
-                    SharedPreferences preferences = getSharedPreferences("myFile", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString(sDate, myGson);
-                    editor.apply();
-
-                    Toast.makeText(getApplicationContext(), "Comment successfully saved", Toast.LENGTH_SHORT).show();
 
 
                 }
@@ -217,6 +222,13 @@ public class MainActivity extends AppCompatActivity {
                     index--;
 
                     changeUi(index);
+                    LocalDate myFormatedDate = LocalDate.now();
+                    @SuppressLint("WeekBasedYear")
+                    String sDate = myFormatedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    SharedPreferences preferences = getSharedPreferences("myFile", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString(sDate,String.valueOf(index));
+                    editor.apply();
 
 
                 }
@@ -230,6 +242,8 @@ public class MainActivity extends AppCompatActivity {
                     index++;
 
                     changeUi(index);
+
+
 
                 }
 

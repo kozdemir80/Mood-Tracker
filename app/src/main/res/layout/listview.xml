@@ -1,28 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     android:id="@+id/mLayout"
+    android:orientation="horizontal"
+    android:background="#FFFFFF"
     tools:ignore="InvalidId,UseCompoundDrawables">
 
+    <FrameLayout
+        android:id="@+id/left_frame_layout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+
+        android:layout_weight="20">
 
     <TextView
         android:id="@+id/days"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginTop="5dp"
+        android:layout_gravity="start|center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textColor="#263238"
+        android:layout_marginBottom="30dp"
+        android:textStyle="bold"
         tools:ignore="HardcodedText" />
 
     <ImageView
         android:id="@+id/image7"
         android:layout_width="48dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:layout_gravity="end|center_vertical"
         android:layout_marginStart="230dp"
         android:layout_marginTop="10dp"
         tools:ignore="ContentDescription" />
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/right_frame_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="20" />
 
-
-</RelativeLayout>
+</LinearLayout>

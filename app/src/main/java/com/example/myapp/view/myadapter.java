@@ -2,12 +2,12 @@ package com.example.myapp.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,7 +64,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
         TextView textView=holder.days;
         ImageView imageView= holder.image7;
         imageView.setImageResource(myMood.getImage());
-        textView.setBackgroundColor(myMood.getColors());
+
 
 
 
@@ -93,27 +93,37 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
                     textView.setText("6 days ago");
                     break;
             }
-            int width = Resources.getSystem().getDisplayMetrics().widthPixels;
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 230);
+            LinearLayout.LayoutParams leftLayoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
+            LinearLayout.LayoutParams rightLayoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
+            float weight ;
             switch (myMood.getColors()){
-                case R.color.red:
-                    params.width = 20 / 100;
+                case-2212784:
+                    weight = 0.2f;
                     break;
 
-                case R.color.grey:
-                    params.width = width * 40 / 100;
+                case -6579301:
+                    weight = 0.4f;
                     break;
-                case R.color.blue:
-                    params.width = width * 60 / 100;
+                case -1522103591:
+                    weight = 0.6f;
                     break;
-                case R.color.green:
-                    params.width = width * 80 / 100;
+                case -4658810:
+                    weight = 0.8f;
                     break;
-                case R.color.yellow:
-                    params.width = width;
+                case -398257:
+                    weight = 1.0f;
                     break;
+
+                default:
+                    weight = 0.8f;
             }
-            holder.days.setLayoutParams(params);
+            leftLayoutParams.weight = weight;
+            rightLayoutParams.weight = 1.0f - weight;
+            holder.leftFrameLayout.setLayoutParams(leftLayoutParams);
+            holder.rightFrameLayout.setLayoutParams(rightLayoutParams);
+            holder.leftFrameLayout.setBackgroundColor(myMood.getColors());
+            
+
 
 
 
@@ -149,6 +159,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
   public static class adapterHolder extends RecyclerView.ViewHolder{
         TextView days;
         ImageView image7;
+      private FrameLayout leftFrameLayout;
+      private FrameLayout rightFrameLayout;
+
 
 
 
@@ -157,6 +170,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
 
             days= itemView.findViewById(R.id.days);
             image7= itemView.findViewById(R.id.image7);
+            leftFrameLayout = itemView.findViewById(R.id.left_frame_layout);
+            rightFrameLayout = itemView.findViewById(R.id.right_frame_layout);
 
 
 
