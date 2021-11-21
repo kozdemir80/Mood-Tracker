@@ -126,10 +126,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
+    // setting alarm and calender to enter mood everyday
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void scheduleAlarm() {
@@ -139,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         calendar.set(Calendar.SECOND,59);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, BroadCastReciever.class);
         @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0 ,intent,PendingIntent.FLAG_UPDATE_CURRENT);
         if (alarmManager != null) {
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
@@ -171,18 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    // gesture dedector to be able to move from one to another
 
     private class mGesture implements GestureDetector.OnGestureListener {
 
@@ -222,19 +208,7 @@ public class MainActivity extends AppCompatActivity {
                     index--;
 
                     changeUi(index);
-                    int color = ((ColorDrawable) mLayout.getBackground()).getColor();
-                    LocalDate myFormatedDate = LocalDate.now();
-                    @SuppressLint("WeekBasedYear")
-                    String sDate = myFormatedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    Moods myMood = new Moods("", 0, 0);
-                    myMood.setColors(color);
-                    Gson gson = new Gson();
-                    String myGson = gson.toJson(myMood);
-                    SharedPreferences preferences = getSharedPreferences("myFile", MODE_PRIVATE);
-                    Log.d(TAG, "kadir: "+preferences);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString(sDate, myGson);
-                    editor.apply();
+
 
 
 
@@ -249,8 +223,10 @@ public class MainActivity extends AppCompatActivity {
                     index++;
 
                     changeUi(index);
-                    int color = ((ColorDrawable) mLayout.getBackground()).getColor();
 
+
+
+                    int color = ((ColorDrawable) mLayout.getBackground()).getColor();
                     LocalDate myFormatedDate = LocalDate.now();
                     @SuppressLint("WeekBasedYear")
                     String sDate = myFormatedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
@@ -263,9 +239,6 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString(sDate, myGson);
                     editor.apply();
-
-
-
 
                 }
 

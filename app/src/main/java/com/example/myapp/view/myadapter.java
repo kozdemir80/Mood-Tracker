@@ -25,13 +25,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
     private final Context context;
     LayoutInflater inflater;
 
-
-
-
-
-
-
-
     public myadapter(ArrayList<Moods> arrayItems, Context context) {
         inflater=LayoutInflater.from(context);
         this.arrayItems = arrayItems;
@@ -40,9 +33,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
 
     }
 
-
-
-
     @NonNull
     @Override
     public adapterHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -50,25 +40,16 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
         return new adapterHolder(v);
     }
 
-
     @SuppressLint({"SetTextI18n", "NonConstantResourceId", "ResourceAsColor"})
     @Override
     public void onBindViewHolder(@NonNull adapterHolder holder, int position) {
         Moods myMood= arrayItems.get(position);
-
-
-
 
         try {
 
         TextView textView=holder.days;
         ImageView imageView= holder.image7;
         imageView.setImageResource(myMood.getImage());
-
-
-
-
-
 
             switch (position){
                 case 0:
@@ -107,9 +88,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
                 case -1522103591:
                     weight = 0.6f;
                     break;
-                case -4658810:
-                    weight = 0.8f;
-                    break;
                 case -398257:
                     weight = 1.0f;
                     break;
@@ -122,17 +100,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
             holder.leftFrameLayout.setLayoutParams(leftLayoutParams);
             holder.rightFrameLayout.setLayoutParams(rightLayoutParams);
             holder.leftFrameLayout.setBackgroundColor(myMood.getColors());
-            
-
-
-
-
-
-
-
-
-
-
 
         }catch (NullPointerException ignored){
         }
@@ -159,11 +126,8 @@ public class myadapter extends RecyclerView.Adapter<myadapter.adapterHolder> {
   public static class adapterHolder extends RecyclerView.ViewHolder{
         TextView days;
         ImageView image7;
-      private FrameLayout leftFrameLayout;
-      private FrameLayout rightFrameLayout;
-
-
-
+      private final FrameLayout leftFrameLayout;
+      private final FrameLayout rightFrameLayout;
 
         public  adapterHolder(@NonNull View itemView) {
             super(itemView);

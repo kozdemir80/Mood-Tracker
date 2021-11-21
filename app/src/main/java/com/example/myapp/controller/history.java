@@ -43,9 +43,6 @@ public class history extends AppCompatActivity {
         image7=findViewById(R.id.image7);
         recyclerView= findViewById(R.id.mview);
 
-
-
-
         myadapter adapter = new myadapter(getList(),this);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
@@ -54,9 +51,6 @@ public class history extends AppCompatActivity {
 
 
     }
-
-
-
 
     @SuppressLint("WeekBasedYear")
     public ArrayList<Moods> getList() {
